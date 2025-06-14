@@ -1,0 +1,11 @@
+### GET home page
+http:localhost:5000/
+
+### GET all Posts
+http:localhost:5000/posts/
+
+### GET one Post
+http:localhost:5000/posts/2
+
+### GET About me page
+http:localhost:5000/aboutMe
