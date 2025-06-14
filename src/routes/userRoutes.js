@@ -20,7 +20,7 @@ router.get( "/:id" , async ( req , res ) => {
     const id = parseInt( req.params.id );
 
     if ( isNaN( id ) ){
-        return res.status(400).send("Invalid ID");
+        return res.status(400).json("Invalid ID");
     }
     try{
         const post = await prisma.post.findUnique({

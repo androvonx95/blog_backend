@@ -46,7 +46,7 @@ router.post( '/login' , async ( req , res ) => {
         } );
 
         if(!user){
-            res.status( 401 ).json( { error : "User not found" } );
+            return res.status( 401 ).json( { error : "User not found" } );
         }
 
         const passwordIsValid = bcrypt.compareSync( password ,user.password );
@@ -57,7 +57,7 @@ router.post( '/login' , async ( req , res ) => {
         const token = jwt.sign( { id : user.id , username : user.username} , JWT_SECRET_KEY , {
             expiresIn : '10h'
         } );
-        res.status(201).json( { msg : "User registered" , token } );
+        res.status(201).json( { msg : "User Logged in" , token } );
 
     }
     catch( err ){

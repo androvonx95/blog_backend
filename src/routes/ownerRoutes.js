@@ -6,7 +6,7 @@ import userRoutes from './userRoutes.js';
 const router = express.Router();
 
 // Create a Post/Draft
-router.post('newPost/', authenticateToken, async (req, res) => {
+router.post('/newPost', authenticateToken, async (req, res) => {
     const { title , content , published } = req.body;
 
     try{
@@ -27,7 +27,7 @@ router.post('newPost/', authenticateToken, async (req, res) => {
 });
 
 // Update a Post 
-router.put('updatePost/:id', authenticateToken, async (req, res) => {
+router.put('/updatePost/:id', authenticateToken, async (req, res) => {
     const id = parseInt( req.params.id );
     const { title , content , published } = req.body;
 
@@ -65,7 +65,7 @@ router.put('updatePost/:id', authenticateToken, async (req, res) => {
 });
 
 // Delete a Post 
-router.delete('deletePost/:id', authenticateToken, async (req, res) => {
+router.delete('/deletePost/:id', authenticateToken, async (req, res) => {
     const id = parseInt( req.params.id );
 
     if ( isNaN( id ) ){
