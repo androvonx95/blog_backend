@@ -12,20 +12,28 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.json());
-
+app.use(express.json()); // JSON parsing
+app.use(helmet()); // Security headers
+app.use(cors()); // CORS configuration
+app.use(rateLimit()); // Rate limiting
+app.use(expressValidator()); // Input validation
 
 app.get( '/' , (req,res) => {
-    res.status(200).send('Hey welcome to my blog...')
+    res.status(200).send('Hey welcome to my blog...');
 });
 
 app.get( '/aboutMe' , (req,res) => {
-    res.status(200).send('This is my about me page')
+    res.status(200).send('This is my about me page');
 });
 
-app.use( '/posts' , userRoutes );
-app.use( '/auth' , middleware ,authRoutes );
-app.use( '/admin' , middleware ,ownerRoutes );
+app.use( '/posts' , userRoutes );               // user Routes
+app.use( '/auth' , middleware ,authRoutes );    // authentication routes for blog owner
+app.use( '/admin' , middleware ,ownerRoutes );  // owner routes for owner (after authetication)
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Something went wrong!' });
+});
 
 app.listen( PORT , () => {
     console.log(`Server listening on http://localhost:${PORT}`)
