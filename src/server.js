@@ -1,11 +1,16 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js';
-import middleware from './middleware/auth.js';
+import middleware from './middleware/auth.js' ;
 import authRoutes from './routes/authRoutes.js';
 import ownerRoutes from './routes/ownerRoutes.js';
 
-dotenv.config(); // This replaces require('dotenv').config();
+import helmet from 'helmet';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+// import expressValidator from 'express-validator'; // Optional, for custom validators
+
+dotenv.config();
 
 
 const app = express();
@@ -16,7 +21,7 @@ app.use(express.json()); // JSON parsing
 app.use(helmet()); // Security headers
 app.use(cors()); // CORS configuration
 app.use(rateLimit()); // Rate limiting
-app.use(expressValidator()); // Input validation
+// app.use(expressValidator()); // Input validation
 
 app.get( '/' , (req,res) => {
     res.status(200).send('Hey welcome to my blog...');
@@ -27,7 +32,7 @@ app.get( '/aboutMe' , (req,res) => {
 });
 
 app.use( '/posts' , userRoutes );               // user Routes
-app.use( '/auth' , middleware ,authRoutes );    // authentication routes for blog owner
+app.use( '/auth' ,authRoutes );    // authentication routes for blog owner
 app.use( '/admin' , middleware ,ownerRoutes );  // owner routes for owner (after authetication)
 
 app.use((err, req, res, next) => {
