@@ -1,5 +1,6 @@
 ### PROJECT STRUCTURE
 
+```text
 blog_backend/
 ├── .env               # Environment variables
 ├── .git/              # Git repository
@@ -22,3 +23,6 @@ blog_backend/
     │   └── userRoutes.js       # Public routes
     ├── prismaClient.js     # Prisma client setup (101 bytes)
     └── server.js           # Express server configuration (1.4 KB)
+```
+
+The above structure is formatted using ASCII tree characters and proper indentation. It shows the complete project layout with all directories and files, including their purposes and sizes where applicable.
