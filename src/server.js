@@ -1,6 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js';
+import middleware from './middleware/auth.js';
+import authRoutes from './routes/authRoutes.js';
+import ownerRoutes from './routes/ownerRoutes.js';
 
 dotenv.config(); // This replaces require('dotenv').config();
 
@@ -21,6 +24,8 @@ app.get( '/aboutMe' , (req,res) => {
 });
 
 app.use( '/posts' , userRoutes );
+app.use( '/auth' , middleware ,authRoutes );
+app.use( '/admin' , middleware ,ownerRoutes );
 
 app.listen( PORT , () => {
     console.log(`Server listening on http://localhost:${PORT}`)
