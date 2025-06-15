@@ -1,21 +1,18 @@
-# Start with a light Node.js base image
+# Use lightweight Node.js image
 FROM node:22-alpine
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy the rest of your app
+# Copy the rest of the source code
 COPY . .
 
-# Generate Prisma client
-RUN npx prisma generate
-
-# Expose port your app runs on
+# Expose app port
 EXPOSE 5000
 
-# Run the app
-CMD ["npm", "run", "dev"]
+# Run Prisma generate and start dev server
+CMD ["sh", "-c", "npx prisma generate && npm run dev"]

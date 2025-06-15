@@ -13,6 +13,13 @@ router.post( '/register' , async ( req , res ) => {
     const ip_address = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
     try{
+        // Count existing users
+        const userCount = await prisma.user.count();
+
+        // If more than 2 users exist, block registration
+        if (userCount >= 1) {
+            return res.status(403).json({ error: "Registration is closed." });
+        }
         const user = await prisma.user.create( {
             data : {
                 username , 
