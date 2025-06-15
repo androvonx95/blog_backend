@@ -57,4 +57,4 @@ API documentation is available in [blog-backend.rest](./blog-backend.rest) (Note
 
 ## License
 
-ISC License
+This project is licensed under the MIT License - see the LICENSE file for details
